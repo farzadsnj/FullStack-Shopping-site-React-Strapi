@@ -1,12 +1,11 @@
-import React from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { IconButton, Box, Typography, useTheme, Button } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
+import { shades } from "../theme";
+import { addToCart } from "../state";
 import { useNavigate } from "react-router-dom";
-import { shades } from "../../theme";
-import { addToCart, increaseCount, decreaseCount } from "../state/State";
 
 const Item = ({ item, width }) => {
   const navigate = useNavigate();
@@ -19,7 +18,7 @@ const Item = ({ item, width }) => {
 
   const { category, price, name, image } = item.attributes;
   const {
-    date: {
+    data: {
       attributes: {
         formats: {
           medium: { url },
@@ -39,7 +38,7 @@ const Item = ({ item, width }) => {
           alt={item.name}
           width="300px"
           height="400px"
-          src={`http://localhost:1337${url}`}
+          src={`http://localhost:2000${url}`}
           onClick={() => navigate(`/item/${item.id}`)}
           style={{ cursor: "pointer" }}
         />
@@ -52,40 +51,40 @@ const Item = ({ item, width }) => {
           padding="0 5%"
         >
           <Box display="flex" justifyContent="space-between">
-            {/* amount */}
             <Box
               display="flex"
               alignItems="center"
-              backgroungColor={shades.neutral[100]}
+              backgroundColor={shades.neutral[100]}
               borderRadius="3px"
             >
-              <IconButton onClick={() => dispatch(Math.max(count - 1, 1))}>
+              <IconButton onClick={() => setCount(Math.max(count - 1, 1))}>
                 <RemoveIcon />
               </IconButton>
               <Typography color={shades.primary[300]}>{count}</Typography>
-              <IconButton onClick={() => dispatch(Math.max(count + 1))}>
+              <IconButton onClick={() => setCount(count + 1)}>
                 <AddIcon />
               </IconButton>
             </Box>
-
-            {/* button */}
             <Button
               onClick={() => {
                 dispatch(addToCart({ item: { ...item, count } }));
               }}
               sx={{ backgroundColor: shades.primary[300], color: "white" }}
             >
-              Add To Cart
+              Add to Cart
             </Button>
           </Box>
         </Box>
       </Box>
+
       <Box mt="3px">
         <Typography variant="subtitle2" color={neutral.dark}>
-          {category.replace(/([A-Z])/g, " $1").replace(/^./, (str)=> str.toUpperCase())}
+          {category
+            .replace(/([A-Z])/g, " $1")
+            .replace(/^./, (str) => str.toUpperCase())}
         </Typography>
         <Typography>{name}</Typography>
-        <Typography fontWeight='bold'>{price}</Typography>
+        <Typography fontWeight="bold">${price}</Typography>
       </Box>
     </Box>
   );
