@@ -15,7 +15,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart.cart);
-  
+
   return (
     <Box
       display="flex"

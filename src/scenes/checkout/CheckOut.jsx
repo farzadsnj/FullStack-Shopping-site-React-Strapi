@@ -6,7 +6,7 @@ import * as yup from "yup";
 import { shades } from "../../theme";
 import Payment from "./Payment";
 import Shipping from "./Shipping";
-import {loadStripe} from '@stripe/stripe-js';
+import { loadStripe } from "@stripe/stripe-js";
 
 const stripePromise = loadStripe(
   "pk_test_51MdtQtGtekfrGNKs7wmWvo3PJCUrakGcVYJVeCLCEO7lHRA0U1R4L8GRiOYMcUgWJx470F6hg1gu4ImofqRhv7BD00awXyOqAG"
@@ -218,7 +218,7 @@ const checkoutSchema = [
     }),
   }),
   yup.object().shape({
-    email: yup.string().email.required("Invalid Email Address"),
+    email: yup.string().required("Invalid Email Address"),
     phoneNumber: yup.string().required("required"),
   }),
 ];
